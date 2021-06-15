@@ -99,14 +99,19 @@ function onGalleryContainerClick(e) {
     return
   } 
   refs.backdropEl.classList.add('is-open');
-  if (refs.backdropEl.classList.contains('is-open')) {
-    refs.lightboxImageEl.src = e.target.closest('.gallery__link').href;
-    refs.lightboxImageEl.alt = e.target.alt;
-  }
+  addImageAttribute( e.target.alt, e.target.closest('.gallery__link').href );
   window.addEventListener('keydown', onEskKeyPress);
 }
 
-
+function addImageAttribute(alt, src) {
+  refs.lightboxImageEl.src = '';
+  if (refs.backdropEl.classList.contains('is-open')) {
+    refs.lightboxImageEl.src = src;
+    refs.lightboxImageEl.alt = alt;
+  } else {
+    refs.lightboxImageEl.src = '';
+  }
+}
 
 refs.closeLightboxEl.addEventListener('click', onCloseElClick);
 
@@ -115,7 +120,6 @@ function onCloseElClick(e) {
   if (refs.backdropEl.classList.contains('is-open')){
     refs.backdropEl.classList.remove('is-open')
   }
-  refs.lightboxImageEl.src = '';
 }
 
 refs.lightboxOverlayEl.addEventListener('click', onCloseElClick);
